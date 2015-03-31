@@ -127,16 +127,6 @@ module.exports = yeoman.generators.Base.extend({
           }
         },
 
-        jshint: {
-          options: {
-            jshintrc: '.jshintrc'
-          },
-          all: [
-            'Gruntfile.js',
-            '<%= src %>/js/**/*.js'
-          ]
-        },
-
         copy: {
           dist: {
             files: [{
@@ -147,29 +137,6 @@ module.exports = yeoman.generators.Base.extend({
               dest: '<%= dist %>/vendor/'
             }]
           },
-        },
-
-        imagemin: {
-          target: {
-            files: [{
-              expand: true,
-              cwd: '<%= src %>/images/',
-              src: ['**/*.{jpg,gif,svg,jpeg,png}'],
-              dest: '<%= dist %>/images/'
-            }]
-          }
-        },
-
-        uglify: {
-          options: {
-            preserveComments: 'some',
-            mangle: false
-          },
-          dist: {
-            files: {
-              '<%= dist %>/js/scripts.js': ['<%= src %>/js/scripts.js']
-            }
-          }
         },
 
         watch: {
@@ -206,7 +173,7 @@ module.exports = yeoman.generators.Base.extend({
           }
         },
 
-        defaultTask: ['jade', 'sass', 'imagemin', 'jshint', 'uglify', 'copy', 'connect', 'watch']
+        defaultTask: ['jade', 'sass', 'copy', 'connect', 'watch']
       };
 
       gruntConfig.sass.dist.options.compass = this.usesCompass;
@@ -222,10 +189,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.gruntfile.insertConfig('sass', JSON.stringify(gruntConfig.sass));
       this.gruntfile.insertConfig('jade', JSON.stringify(gruntConfig.jade));
-      this.gruntfile.insertConfig('jshint', JSON.stringify(gruntConfig.jshint));
       this.gruntfile.insertConfig('copy', JSON.stringify(gruntConfig.copy));
-      this.gruntfile.insertConfig('imagemin', JSON.stringify(gruntConfig.imagemin));
-      this.gruntfile.insertConfig('uglify', JSON.stringify(gruntConfig.uglify));
       this.gruntfile.insertConfig('watch', JSON.stringify(gruntConfig.watch));
       this.gruntfile.insertConfig('connect', JSON.stringify(gruntConfig.connect));
 
